@@ -1,0 +1,76 @@
+{
+  "results": [
+    {
+      "title": "Nepal Declares Emergency Over Dengue Outbreak",
+      "description": "Authorities in Nepal have declared a health emergency after a sharp rise in dengue cases across the country.",
+      "link": "https://kathmandupost.com/health/2024/09/01/nepal-declares-dengue-emergency",
+      "pubDate": "2025-04-08",
+      "source_id": "Kathmandu Post",
+      "image_url": "/images/news/4.png"
+    },
+    {
+      "title": "Free Health Camps Set Up in Karnali Province",
+      "description": "Local government has launched free health camps for villagers in remote districts of Karnali.",
+      "link": "https://myrepublica.nagariknetwork.com/news/health-camps-in-karnali-province/",
+      "pubDate": "2025-04-07",
+      "source_id": "MyRepublica",
+      "image_url": "/images/news/5.png"
+    },
+    {
+      "title": "Nepal's Fight Against Malnutrition in Children",
+      "description": "Programs to reduce malnutrition among children are being rolled out with UN and WHO support.",
+      "link": "https://spotlightnepal.com/2025/03/30/nepal-malnutrition-program/",
+      "pubDate": "2025-04-06",
+      "source_id": "Spotlight Nepal",
+      "image_url": "/images/news/6.png"
+    },
+    {
+      "title": "Air Pollution Worsens Respiratory Issues in Kathmandu",
+      "description": "Hospitals in Kathmandu report a spike in respiratory illnesses due to increasing pollution levels.",
+      "link": "https://kathmandupost.com/health/2025/03/28/air-pollution-kathmandu-health-crisis",
+      "pubDate": "2025-04-05",
+      "source_id": "Kathmandu Post",
+      "image_url": "/images/news/one.jpg"
+    },
+    {
+      "title": "National Immunization Week Sees Surge in Participation",
+      "description": "Thousands of children across Nepal received free vaccines during the National Immunization Week.",
+      "link": "https://www.onlinekhabar.com/2025/03/1350223",
+      "pubDate": "2025-04-04",
+      "source_id": "OnlineKhabar",
+      "image_url": "/images/news/two.jpg"
+    },
+    {
+      "title": "WHO Supports Nepal in TB Eradication Drive",
+      "description": "World Health Organization partners with Nepal to eliminate tuberculosis by 2030.",
+      "link": "https://myrepublica.nagariknetwork.com/news/nepal-and-who-launch-joint-tb-control-program/",
+      "pubDate": "2025-04-03",
+      "source_id": "MyRepublica",
+      "image_url": "/images/news/three.jpg"
+    },
+    {
+      "title": "Mental Health Awareness Campaign Launched Nationwide",
+      "description": "Nepal initiates a nationwide awareness campaign to tackle mental health stigma.",
+      "link": "https://kathmandupost.com/health/2025/03/25/national-mental-health-campaign-begins",
+      "pubDate": "2025-04-02",
+      "source_id": "Kathmandu Post",
+      "image_url": "/images/news/22.png"
+    },
+    {
+      "title": "Remote Clinics in Mustang Get Solar-Powered Equipment",
+      "description": "Solar panels are being used to power essential medical equipment in remote Himalayan clinics.",
+      "link": "https://www.nepalitimes.com/news/solar-boosts-healthcare-in-mustang/",
+      "pubDate": "2025-04-01",
+      "source_id": "Nepali Times",
+      "image_url": "/images/news/23.png"
+    },
+    {
+      "title": "Kathmandu Hospital Introduces Robotic Surgery for Cancer Treatment",
+      "description": "A new robotic surgical unit has been launched to enhance cancer treatment precision in Nepal.",
+      "link": "https://myrepublica.nagariknetwork.com/news/first-robotic-surgery-in-nepal-launched/",
+      "pubDate": "2025-03-30",
+      "source_id": "MyRepublica",
+      "image_url": "/images/news/24.png"
+    }
+  ]
+}
