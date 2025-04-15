@@ -1,5 +1,5 @@
-"use client";
 
+import Payment from "./Payment";
 import { ArrowLeft, Search, ShoppingCart, Filter, Star, Plus, Minus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -188,11 +188,9 @@ export default function EPharm() {
                     <div className="border-t pt-4">
                       <div className="flex justify-between items-center mb-4">
                         <span className="font-medium">Total:</span>
-                        <span className="font-bold">${total.toFixed(2)}</span>
+                        <span className="font-bold">Rs.{total.toFixed(2)}</span>
                       </div>
-                      <Button className="w-full bg-[#1e4d8c]">
-                        Proceed to Checkout
-                      </Button>
+                        <Payment total={total.toFixed(2)} />
                     </div>
                   </div>
                 )}
