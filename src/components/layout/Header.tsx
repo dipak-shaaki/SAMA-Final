@@ -1,8 +1,16 @@
 import React from "react";
 import { Heart, Menu, Search, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Header() {
+  const navigate = useNavigate();
+
+  const handleUserClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate('/login', { replace: false });
+  };
+
   return (
     <header className="bg-white shadow-sm fixed w-full top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,7 +24,7 @@ export function Header() {
 
           <nav className="hidden md:flex items-center space-x-8">
             <Link to="/epharmacy">E-Pharmacy</Link>
-            <Link to="/symptoms"><b>Symptom Checker</b></Link>
+            <Link to="/symptoms-checker"><b>Symptom Checker</b></Link>
             <Link to="/news">Health Articles</Link>
             <Link to="/doctors">Find Doctors</Link>
             <Link to="/careers">Careers</Link>
@@ -26,9 +34,12 @@ export function Header() {
             <button className="p-2 hover:bg-gray-100 rounded-full">
               <Search className="h-5 w-5 text-gray-600" />
             </button>
-            <button className="p-2 hover:bg-gray-100 rounded-full">
+            <Link 
+              to="/login"
+              className="p-2 hover:bg-gray-100 rounded-full inline-flex items-center justify-center"
+            >
               <User className="h-5 w-5 text-gray-600" />
-            </button>
+            </Link>
             <button className="md:hidden p-2 hover:bg-gray-100 rounded-full">
               <Menu className="h-5 w-5 text-gray-600" />
             </button>
