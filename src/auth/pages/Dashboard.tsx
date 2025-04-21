@@ -4,7 +4,7 @@ import {
   ClipboardList,
   Pill,
   Building
-} from 'lucide-react';  // Changed the imports to use only available icons
+} from 'lucide-react'; 
 
 // Dummy data for the dashboard
 const medicalHistory = {
