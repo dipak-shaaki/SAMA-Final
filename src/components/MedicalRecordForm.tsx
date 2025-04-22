@@ -7,6 +7,7 @@ import {
   validateHospitalName,
   validateReason
 } from '../utils/validation';
+import ConfirmationDialog from './ConfirmationDialog';
 
 interface MedicalRecordFormProps {
   initialData?: {
@@ -39,6 +40,15 @@ const MedicalRecordForm: React.FC<MedicalRecordFormProps> = ({ initialData, onSu
   const [newVisit, setNewVisit] = useState({ hospital: '', date: '', reason: '' });
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
+  const [deleteDialog, setDeleteDialog] = useState<{
+    isOpen: boolean;
+    type: 'conditions' | 'medications' | 'hospitalVisits';
+    index: number;
+  }>({
+    isOpen: false,
+    type: 'conditions',
+    index: -1
+  });
 
   const validateCondition = () => {
     const nameError = validateRequired(newCondition.name, 'Condition name');
@@ -120,10 +130,19 @@ const MedicalRecordForm: React.FC<MedicalRecordFormProps> = ({ initialData, onSu
   };
 
   const handleRemove = (type: 'conditions' | 'medications' | 'hospitalVisits', index: number) => {
+    setDeleteDialog({ isOpen: true, type, index });
+  };
+
+  const confirmDelete = () => {
     setFormData(prev => ({
       ...prev,
-      [type]: prev[type].filter((_, i) => i !== index)
+      [deleteDialog.type]: prev[deleteDialog.type].filter((_, i) => i !== deleteDialog.index)
     }));
+    setDeleteDialog({ isOpen: false, type: 'conditions', index: -1 });
+  };
+
+  const cancelDelete = () => {
+    setDeleteDialog({ isOpen: false, type: 'conditions', index: -1 });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -140,203 +159,213 @@ const MedicalRecordForm: React.FC<MedicalRecordFormProps> = ({ initialData, onSu
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {errors.submit && (
-        <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded">
-          {errors.submit}
-        </div>
-      )}
+    <>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {errors.submit && (
+          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded">
+            {errors.submit}
+          </div>
+        )}
 
-      {/* Conditions Section */}
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-lg font-semibold mb-4">Medical Conditions</h3>
-        <div className="space-y-4">
-          {formData.conditions.map((condition, index) => (
-            <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
-              <div>
-                <p className="font-medium">{condition.name}</p>
-                <p className="text-sm text-gray-500">Diagnosed: {condition.date}</p>
+        {/* Conditions Section */}
+        <div className="bg-white p-6 rounded-lg shadow">
+          <h3 className="text-lg font-semibold mb-4">Medical Conditions</h3>
+          <div className="space-y-4">
+            {formData.conditions.map((condition, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                <div>
+                  <p className="font-medium">{condition.name}</p>
+                  <p className="text-sm text-gray-500">Diagnosed: {condition.date}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleRemove('conditions', index)}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  <X size={20} />
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => handleRemove('conditions', index)}
-                className="text-red-500 hover:text-red-700"
-              >
-                <X size={20} />
-              </button>
-            </div>
-          ))}
-          <div className="space-y-2">
-            <div className="flex gap-2">
-              <div className="flex-1">
-                <input
-                  type="text"
-                  placeholder="Condition name"
-                  value={newCondition.name}
-                  onChange={(e) => setNewCondition(prev => ({ ...prev, name: e.target.value }))}
-                  className={`w-full px-3 py-2 border rounded ${errors.conditionName ? 'border-red-500' : ''}`}
-                />
-                {errors.conditionName && (
-                  <p className="text-red-500 text-sm mt-1">{errors.conditionName}</p>
-                )}
+            ))}
+            <div className="space-y-2">
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <input
+                    type="text"
+                    placeholder="Condition name"
+                    value={newCondition.name}
+                    onChange={(e) => setNewCondition(prev => ({ ...prev, name: e.target.value }))}
+                    className={`w-full px-3 py-2 border rounded ${errors.conditionName ? 'border-red-500' : ''}`}
+                  />
+                  {errors.conditionName && (
+                    <p className="text-red-500 text-sm mt-1">{errors.conditionName}</p>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <input
+                    type="date"
+                    value={newCondition.date}
+                    onChange={(e) => setNewCondition(prev => ({ ...prev, date: e.target.value }))}
+                    className={`w-full px-3 py-2 border rounded ${errors.conditionDate ? 'border-red-500' : ''}`}
+                  />
+                  {errors.conditionDate && (
+                    <p className="text-red-500 text-sm mt-1">{errors.conditionDate}</p>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAddCondition}
+                  className="px-3 py-2 bg-[#0E998C] text-white rounded hover:bg-[#0d8a7f]"
+                >
+                  <Plus size={20} />
+                </button>
               </div>
-              <div className="flex-1">
-                <input
-                  type="date"
-                  value={newCondition.date}
-                  onChange={(e) => setNewCondition(prev => ({ ...prev, date: e.target.value }))}
-                  className={`w-full px-3 py-2 border rounded ${errors.conditionDate ? 'border-red-500' : ''}`}
-                />
-                {errors.conditionDate && (
-                  <p className="text-red-500 text-sm mt-1">{errors.conditionDate}</p>
-                )}
-              </div>
-              <button
-                type="button"
-                onClick={handleAddCondition}
-                className="px-3 py-2 bg-[#0E998C] text-white rounded hover:bg-[#0d8a7f]"
-              >
-                <Plus size={20} />
-              </button>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Medications Section */}
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-lg font-semibold mb-4">Medications</h3>
-        <div className="space-y-4">
-          {formData.medications.map((medication, index) => (
-            <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
-              <div>
-                <p className="font-medium">{medication.name}</p>
-                <p className="text-sm text-gray-500">Dosage: {medication.dosage}</p>
+        {/* Medications Section */}
+        <div className="bg-white p-6 rounded-lg shadow">
+          <h3 className="text-lg font-semibold mb-4">Medications</h3>
+          <div className="space-y-4">
+            {formData.medications.map((medication, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                <div>
+                  <p className="font-medium">{medication.name}</p>
+                  <p className="text-sm text-gray-500">Dosage: {medication.dosage}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleRemove('medications', index)}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  <X size={20} />
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => handleRemove('medications', index)}
-                className="text-red-500 hover:text-red-700"
-              >
-                <X size={20} />
-              </button>
-            </div>
-          ))}
-          <div className="space-y-2">
-            <div className="flex gap-2">
-              <div className="flex-1">
-                <input
-                  type="text"
-                  placeholder="Medication name"
-                  value={newMedication.name}
-                  onChange={(e) => setNewMedication(prev => ({ ...prev, name: e.target.value }))}
-                  className={`w-full px-3 py-2 border rounded ${errors.medicationName ? 'border-red-500' : ''}`}
-                />
-                {errors.medicationName && (
-                  <p className="text-red-500 text-sm mt-1">{errors.medicationName}</p>
-                )}
+            ))}
+            <div className="space-y-2">
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <input
+                    type="text"
+                    placeholder="Medication name"
+                    value={newMedication.name}
+                    onChange={(e) => setNewMedication(prev => ({ ...prev, name: e.target.value }))}
+                    className={`w-full px-3 py-2 border rounded ${errors.medicationName ? 'border-red-500' : ''}`}
+                  />
+                  {errors.medicationName && (
+                    <p className="text-red-500 text-sm mt-1">{errors.medicationName}</p>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <input
+                    type="text"
+                    placeholder="Dosage (e.g., 500mg, 1 tablet)"
+                    value={newMedication.dosage}
+                    onChange={(e) => setNewMedication(prev => ({ ...prev, dosage: e.target.value }))}
+                    className={`w-full px-3 py-2 border rounded ${errors.medicationDosage ? 'border-red-500' : ''}`}
+                  />
+                  {errors.medicationDosage && (
+                    <p className="text-red-500 text-sm mt-1">{errors.medicationDosage}</p>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAddMedication}
+                  className="px-3 py-2 bg-[#0E998C] text-white rounded hover:bg-[#0d8a7f]"
+                >
+                  <Plus size={20} />
+                </button>
               </div>
-              <div className="flex-1">
-                <input
-                  type="text"
-                  placeholder="Dosage (e.g., 500mg, 1 tablet)"
-                  value={newMedication.dosage}
-                  onChange={(e) => setNewMedication(prev => ({ ...prev, dosage: e.target.value }))}
-                  className={`w-full px-3 py-2 border rounded ${errors.medicationDosage ? 'border-red-500' : ''}`}
-                />
-                {errors.medicationDosage && (
-                  <p className="text-red-500 text-sm mt-1">{errors.medicationDosage}</p>
-                )}
-              </div>
-              <button
-                type="button"
-                onClick={handleAddMedication}
-                className="px-3 py-2 bg-[#0E998C] text-white rounded hover:bg-[#0d8a7f]"
-              >
-                <Plus size={20} />
-              </button>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Hospital Visits Section */}
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h3 className="text-lg font-semibold mb-4">Hospital Visits</h3>
-        <div className="space-y-4">
-          {formData.hospitalVisits.map((visit, index) => (
-            <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+        {/* Hospital Visits Section */}
+        <div className="bg-white p-6 rounded-lg shadow">
+          <h3 className="text-lg font-semibold mb-4">Hospital Visits</h3>
+          <div className="space-y-4">
+            {formData.hospitalVisits.map((visit, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                <div>
+                  <p className="font-medium">{visit.hospital}</p>
+                  <p className="text-sm text-gray-500">Date: {visit.date}</p>
+                  <p className="text-sm text-gray-500">Reason: {visit.reason}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleRemove('hospitalVisits', index)}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+            ))}
+            <div className="space-y-2">
               <div>
-                <p className="font-medium">{visit.hospital}</p>
-                <p className="text-sm text-gray-500">Date: {visit.date}</p>
-                <p className="text-sm text-gray-500">Reason: {visit.reason}</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => handleRemove('hospitalVisits', index)}
-                className="text-red-500 hover:text-red-700"
-              >
-                <X size={20} />
-              </button>
-            </div>
-          ))}
-          <div className="space-y-2">
-            <div>
-              <input
-                type="text"
-                placeholder="Hospital name"
-                value={newVisit.hospital}
-                onChange={(e) => setNewVisit(prev => ({ ...prev, hospital: e.target.value }))}
-                className={`w-full px-3 py-2 border rounded ${errors.hospitalName ? 'border-red-500' : ''}`}
-              />
-              {errors.hospitalName && (
-                <p className="text-red-500 text-sm mt-1">{errors.hospitalName}</p>
-              )}
-            </div>
-            <div className="flex gap-2">
-              <div className="flex-1">
-                <input
-                  type="date"
-                  value={newVisit.date}
-                  onChange={(e) => setNewVisit(prev => ({ ...prev, date: e.target.value }))}
-                  className={`w-full px-3 py-2 border rounded ${errors.visitDate ? 'border-red-500' : ''}`}
-                />
-                {errors.visitDate && (
-                  <p className="text-red-500 text-sm mt-1">{errors.visitDate}</p>
-                )}
-              </div>
-              <div className="flex-1">
                 <input
                   type="text"
-                  placeholder="Reason for visit"
-                  value={newVisit.reason}
-                  onChange={(e) => setNewVisit(prev => ({ ...prev, reason: e.target.value }))}
-                  className={`w-full px-3 py-2 border rounded ${errors.visitReason ? 'border-red-500' : ''}`}
+                  placeholder="Hospital name"
+                  value={newVisit.hospital}
+                  onChange={(e) => setNewVisit(prev => ({ ...prev, hospital: e.target.value }))}
+                  className={`w-full px-3 py-2 border rounded ${errors.hospitalName ? 'border-red-500' : ''}`}
                 />
-                {errors.visitReason && (
-                  <p className="text-red-500 text-sm mt-1">{errors.visitReason}</p>
+                {errors.hospitalName && (
+                  <p className="text-red-500 text-sm mt-1">{errors.hospitalName}</p>
                 )}
               </div>
-              <button
-                type="button"
-                onClick={handleAddVisit}
-                className="px-3 py-2 bg-[#0E998C] text-white rounded hover:bg-[#0d8a7f]"
-              >
-                <Plus size={20} />
-              </button>
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <input
+                    type="date"
+                    value={newVisit.date}
+                    onChange={(e) => setNewVisit(prev => ({ ...prev, date: e.target.value }))}
+                    className={`w-full px-3 py-2 border rounded ${errors.visitDate ? 'border-red-500' : ''}`}
+                  />
+                  {errors.visitDate && (
+                    <p className="text-red-500 text-sm mt-1">{errors.visitDate}</p>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <input
+                    type="text"
+                    placeholder="Reason for visit"
+                    value={newVisit.reason}
+                    onChange={(e) => setNewVisit(prev => ({ ...prev, reason: e.target.value }))}
+                    className={`w-full px-3 py-2 border rounded ${errors.visitReason ? 'border-red-500' : ''}`}
+                  />
+                  {errors.visitReason && (
+                    <p className="text-red-500 text-sm mt-1">{errors.visitReason}</p>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAddVisit}
+                  className="px-3 py-2 bg-[#0E998C] text-white rounded hover:bg-[#0d8a7f]"
+                >
+                  <Plus size={20} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full py-2 px-4 bg-[#0E998C] text-white rounded hover:bg-[#0d8a7f] disabled:opacity-50"
-      >
-        {loading ? 'Saving...' : 'Save Medical Records'}
-      </button>
-    </form>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full py-2 px-4 bg-[#0E998C] text-white rounded hover:bg-[#0d8a7f] disabled:opacity-50"
+        >
+          {loading ? 'Saving...' : 'Save Medical Records'}
+        </button>
+      </form>
+
+      <ConfirmationDialog
+        isOpen={deleteDialog.isOpen}
+        title="Delete Record"
+        message={`Are you sure you want to delete this ${deleteDialog.type.slice(0, -1)}?`}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
+    </>
   );
 };
 
