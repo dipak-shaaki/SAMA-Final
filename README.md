@@ -1,6 +1,10 @@
 # SAMA Healthcare Platform
 
-A comprehensive digital healthcare platform built with React, TypeScript, Tailwind CSS, and Node.js/Express.  
+This project was developed by our team of five during the 6th semester finals. Our main goal was to create a symptom checker function, but we later decided to implement it as a web-based application. Currently, the project is more frontend-oriented, with backend functionality planned for future implementation.
+
+
+
+It is a comprehensive digital healthcare platform built with React, TypeScript, Tailwind CSS, and Node.js/Express.  
 It provides multiple functionalities including E-Pharmacy, Symptom Checker, Doctor Booking, Health News, Careers, and a User Dashboard.
 
 ---
@@ -79,13 +83,13 @@ It integrates multiple healthcare services into a single web application, offeri
 ![Home Page](public/screenshots/landing.png)
 
 ### Symptom Checker
-![Symptom Checker](public/screenshots/symptom-checker.png)
+![Symptom Checker](public/screenshots/Symptomchecker.png)
 
 ### E-Pharmacy
-![E-Pharmacy](screenshots/epharmacy.png)
+![E-Pharmacy](public/screenshots/e-pharmacy.png)
 
 ### Dashboard
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](public/screenshots/dashboard.png)
 
 ---
 
@@ -100,7 +104,7 @@ It integrates multiple healthcare services into a single web application, offeri
 
 ```sh
 git clone https://github.com/dipak-shaaki/SAMA-Final.git
-cd sama-healthcare
+cd SAMA-Final
 npm install
 ```
 
@@ -167,10 +171,9 @@ npm run dev
 4. Push to the branch (`git push origin feature/YourFeature`)
 5. Open a Pull Request
 
+Thankyou!!
+
 ---
 
-## License
-
-MIT
 
 ---
