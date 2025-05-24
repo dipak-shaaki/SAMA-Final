@@ -1,4 +1,3 @@
-
 import Payment from "./Payment";
 import { ArrowLeft, Search, ShoppingCart, Filter, Star, Plus, Minus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -119,24 +118,24 @@ export default function EPharm() {
   });
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#f0f9ff] to-white pt-16">
+    <main className="min-h-screen bg-gradient-to-b from-[#e0f7f6] to-white pt-16">
       <div className="max-w-7xl mx-auto px-4 py-16">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center space-x-4">
             <Button
               variant="ghost"
-              className="text-[#1e4d8c]"
-              onClick={() => router.push('/')}
+              className="text-[#13a89e]"
+              onClick={() => navigate('/')}
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Back
             </Button>
-            <h1 className="text-3xl font-bold text-[#1e4d8c]">Online Pharmacy</h1>
+            <h1 className="text-3xl font-bold text-[#13a89e]">Online Pharmacy</h1>
           </div>
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" className="text-[#1e4d8c]">
+              <Button variant="outline" className="text-[#13a89e]">
                 <ShoppingCart className="h-5 w-5" />
                 <span className="ml-2">Cart ({items.length})</span>
               </Button>
@@ -212,7 +211,7 @@ export default function EPharm() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <Button variant="outline" className="text-[#1e4d8c]">
+            <Button variant="outline" className="text-[#13a89e]">
               <Filter className="h-4 w-4 mr-2" />
               Filter
             </Button>
@@ -224,8 +223,8 @@ export default function EPharm() {
                 variant={selectedCategory === category.toLowerCase() ? "default" : "outline"}
                 className={`whitespace-nowrap ${
                   selectedCategory === category.toLowerCase()
-                    ? "bg-[#1e4d8c] text-white"
-                    : "text-[#1e4d8c]"
+                    ? "bg-[#13a89e] text-white"
+                    : "text-[#13a89e]"
                 }`}
                 onClick={() => setSelectedCategory(category.toLowerCase())}
               >
@@ -246,7 +245,7 @@ export default function EPharm() {
               />
               <div className="p-6">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-[#1e4d8c] font-medium">{medicine.category}</span>
+                  <span className="text-sm text-[#13a89e] font-medium">{medicine.category}</span>
                   <div className="flex items-center">
                     <Star className="h-4 w-4 text-yellow-400 fill-current" />
                     <span className="ml-1 text-sm text-gray-600">{medicine.rating}</span>
@@ -255,11 +254,11 @@ export default function EPharm() {
                 <h3 className="text-xl font-semibold mb-2">{medicine.name}</h3>
                 <p className="text-gray-600 mb-4 text-sm">{medicine.description}</p>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-lg font-bold text-[#1e4d8c]">${medicine.price}</span>
+                  <span className="text-lg font-bold text-[#13a89e]">${medicine.price}</span>
                   <span className="text-sm text-gray-500">{medicine.dosage}</span>
                 </div>
                 <Button 
-                  className="w-full bg-[#1e4d8c] hover:bg-[#153661] text-white"
+                  className="w-full bg-[#13a89e] hover:bg-[#118e86] text-white"
                   onClick={() => addItem({
                     id: medicine.id,
                     name: medicine.name,

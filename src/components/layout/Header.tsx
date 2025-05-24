@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Heart, Menu, Search, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 export function Header() {
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleUserClick = (e: React.MouseEvent) => {
@@ -24,7 +25,7 @@ export function Header() {
 
           <nav className="hidden md:flex items-center space-x-8">
             <Link to="/epharmacy">E-Pharmacy</Link>
-            <Link to="/symptoms-checker"><b>Symptom Checker</b></Link>
+            <Link to="/symptoms-checker">Symptom Checker</Link>
             <Link to="/news">Health Articles</Link>
             <Link to="/doctors">Find Doctors</Link>
             <Link to="/careers">Careers</Link>
@@ -40,12 +41,28 @@ export function Header() {
             >
               <User className="h-5 w-5 text-gray-600" />
             </Link>
-            <button className="md:hidden p-2 hover:bg-gray-100 rounded-full">
+            <button 
+              className="md:hidden p-2 hover:bg-gray-100 rounded-full"
+              onClick={() => setOpen(!open)}
+              aria-label="Open menu"
+            >
               <Menu className="h-5 w-5 text-gray-600" />
             </button>
           </div>
         </div>
       </div>
+      {/* Mobile Menu */}
+      {open && (
+        <div className="md:hidden px-4 pb-4">
+          <nav className="flex flex-col space-y-2">
+            <Link to="/epharmacy" className="block py-2">E-Pharmacy</Link>
+            <Link to="/symptoms-checker" className="block py-2"><b>Symptom Checker</b></Link>
+            <Link to="/news" className="block py-2">Health Articles</Link>
+            <Link to="/doctors" className="block py-2">Find Doctors</Link>
+            <Link to="/careers" className="block py-2">Careers</Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
