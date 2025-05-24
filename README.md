@@ -74,14 +74,12 @@ It integrates multiple healthcare services into a single web application, offeri
 
 ## Screenshots
 
-> Place your screenshots in a `screenshots/` folder at the root or inside `public/`.  
-> Reference them below:
 
 ### Home Page
-![Home Page](screenshots/home.png)
+![Home Page](public/screenshots/landing.png)
 
 ### Symptom Checker
-![Symptom Checker](screenshots/symptom-checker.png)
+![Symptom Checker](public/screenshots/symptom-checker.png)
 
 ### E-Pharmacy
 ![E-Pharmacy](screenshots/epharmacy.png)
