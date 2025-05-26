@@ -36,7 +36,7 @@ const CareersPage = () => {
                   <button
                     className="bg-[#0E998C] text-white px-6 py-2 rounded-lg hover:bg-[#0D8A7F] transition-colors"
                   >
-                    Subscribe
+                    Subscribe!
                   </button>
                 </div>
               </div>
