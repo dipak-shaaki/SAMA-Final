@@ -86,7 +86,7 @@ const LoginPage: React.FC = () => {
               href="/register"
               className="font-medium text-[#0E998C] hover:text-[#0d8a7f]"
             >
-              Don't have an account? Register
+              Don't have an account? Register Now.
             </a>
           </div>
         </form>
