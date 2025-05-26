@@ -37,7 +37,7 @@ const News: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 pt-24 pb-12">
       <h1 className="text-4xl font-bold mb-10 text-center text-black-700 dark:text-black-400">
-        Top Health News from Nepal
+        Health News 
       </h1>
 
       {loading ? (
