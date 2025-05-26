@@ -146,7 +146,7 @@ export default function EPharm() {
               </SheetHeader>
               <div className="mt-8">
                 {items.length === 0 ? (
-                  <p className="text-center text-gray-500">Your cart is empty</p>
+                  <p className="text-center text-gray-500">Your cart is empty.Add Medicines!</p>
                 ) : (
                   <div className="space-y-4">
                     {items.map((item) => (
